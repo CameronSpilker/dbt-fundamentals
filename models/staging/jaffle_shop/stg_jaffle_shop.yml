@@ -2,11 +2,13 @@ version: 2
 
 models:
   - name: stg_customers
+    description: One unique customer per row
     columns:
       - name: customer_id
+        description: Primary key for stg_customers
         test: 
           - unique
-          - not_null
+          - not_nul;
 
   - name: stg_orders
     columns:
@@ -15,6 +17,7 @@ models:
           - unique
           - not_null
       - name: status
+        description: "{{ doc('order_status') }}"
         tests:
           - accepted_values:
             values:
@@ -24,6 +27,7 @@ models:
               - return_pending
               - placed
       - name: customer_id
+        description: Foreign key to stg_customers.customer_id
         tests:
           - relationships:
               to: ref('stg_customers')
