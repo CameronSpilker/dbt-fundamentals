@@ -1,11 +1,15 @@
 with customers as (
+    select * from  {{ source('jaffle_shop','customers') }}
+)
+
+, recast_renamed as (
     select
         id as customer_id,
         first_name,
         last_name
 
-    from raw.jaffle_shop.customers
+    from customers
 
 )
 
-select * from customers
+select * from recast_renamed
